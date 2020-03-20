@@ -1,0 +1,91 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+				 <%
+				 if (stats) {
+				   	 var image_src = '../resources/img/player' + stats[0].id + '.jpg';
+				 }
+				 else{
+				 	 var image_src = '../resources/img/helmet.jpg';
+				 }
+				 %>
+
+				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
+				  <div class="card-body mx-auto">
+					<form class="form"action="/player_info/post" method="get">
+						<select class="custom-select" name="player_choice" onchange="this.form.submit()">
+							<option selected>Select Player</option>
+							<% players.forEach(function(player) { %>
+							 	<option value='<%-player%>'><%-player.name%></option>
+							<% }); %>
+						</select>
+					</form>
+				  </div>
+				</div>
+			</div>
+
+			<div class="col-8">
+				<div class="table-responsive">
+					<table class="table">
+							<%if (stats) {%>
+							<tr>
+								<th>Year</th>
+								<td><%-stats[0].year%></td>
+							</tr>
+							<tr>
+								<th>Major</th>
+								<td><%-stats[0].major%></td>
+							</tr>
+							<tr>
+								<th>Games Played</th>
+								<td><%-games[0].count%></td>
+							</tr>
+							<tr>
+								<td>Passing Yards: <%-stats[0].passing_yards%></td>
+								<td>Avg. Passing Yards: <%-(stats[0].passing_yards/games[0].count)%></td>
+							</tr>
+							<tr>
+								<td>Rushing Yards: <%-stats[0].rushing_yards%></td>
+								<td>Avg. Rushing Yards: <%-(stats[0].rushing_yards/games[0].count)%></td>
+							</tr>
+							<tr>
+								<td>Receiving Yards: <%-stats[0].receiving_yards%></td>
+								<td>Avg. Receiving Yards: <%-(stats[0].receiving_yards/games[0].count)%></td>
+							</tr>
+							<%} else {%>
+							<tr>
+								<th>Year</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>Major</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>Games Played</th>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Passing Yards: </td>
+								<td>Avg. Passing Yards: </td>
+							</tr>
+							<tr>
+								<td>Rushing Yards: </td>
+								<td>Avg. Rushing Yards: </td>
+							</tr>
+							<tr>
+								<td>Receiving Yards: </td>
+								<td>Avg. Receiving Yards: </td>
+							</tr>
+							<%}%>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<% include ../partials/footer %>

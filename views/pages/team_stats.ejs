@@ -1,0 +1,66 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="jumbotron">
+		  <h1 class="display-4">Fall 2018 Stats</h1>
+		  <p class="lead">Detailed information on how the Buffs are doing in the 2018 Football Season!</p>
+		</div>
+		
+		<table class="table table-bordered" id="stats_table">
+			<tr>
+				<th class="align-bottom" rowspan="2">Game Date</th>
+				<th class="align-bottom"rowspan="2">Opposing Team Name</th>
+				<th class="text-center" colspan="2">Score</th>
+				<th class="align-bottom" rowspan="2">Winner</th>
+			</tr>
+			<tr>
+				<th>Home Score</th>
+				<th>Opp. Score</th>
+			</tr>
+			<!-- TODO: Iterate over the Football_table data here 
+						1. Display the information for each row (date, name, home score, visitor score)
+						2. Determine who the winner is and display it in the final column
+						If you're not sure how the logic should work here, review the code you add to the client-side javascript
+						that ran onload for Lab 5.  We are doing the same kind of operations we had in Lab 5, but we are instead having
+						everything handled via server-side scriptes
+			-->
+			<%
+			if (games) { games.forEach(function(item) { %> 
+			    <tr>
+			    	<td><%= item.game_date %></td>
+			    	<td><%= item.visitor_name %></td>
+			    	<td><%= item.home_score %></td>
+			    	<td><%= item.visitor_score %></td>
+			    	<% if (item.home_score > item.visitor_score) { %>
+			    		<td>CU Boulder</td>
+			    	<% } %>
+			    	<% if (item.home_score < item.visitor_score) { %>
+			    		<td><%= item.visitor_name %></td>
+			    	<% } %>
+			    </tr>
+			<% }); } %>
+		</table>
+		<br>
+		<table class="table text-center">
+			<tr>
+				<th>Wins</th>
+				<th>Losses</th>
+			</tr>
+			<tr>
+				<td>
+					<%if(wins) { %>
+						<p><%= wins[0].count %></p>
+					<% } %>
+				</td>
+				<td> 
+					<%if(losses) { %>
+						<p><%= losses[0].count %></p>
+					<% } %>
+				</td>
+			
+			</tr>
+		</table>
+		
+	</div>
+<% include ../partials/footer %>
